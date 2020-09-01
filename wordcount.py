@@ -36,15 +36,16 @@ def create_word_dict(filename):
     with open(filename) as file:
         data = file.read()
         data_case_sensitive = data.lower()
-        #print(data.count('the'))
-        word_list = list(filter(None, data_case_sensitive.split(' ')))
+        # print(data.count('the'))
+        word_list = data_case_sensitive.split()
         new_dic = {}
         for word in word_list:
             if word not in new_dic.keys():
                 new_dic[word] = 1
             else:
                 new_dic[word] += 1
-            #new_dic.update({word : word_list.count(word)})
+            # new_dic.update({word : word_list.count(word)})
+    # print(new_dic)
     return new_dic
 
 
@@ -52,51 +53,37 @@ def print_words(filename):
     """Prints one per line '<word> : <count>', sorted
     by word for the given file.
     """
-    ##
-    #d = list(create_word_dict(filename))
+    # #
+    # d = list(create_word_dict(filename))
     word_dict = create_word_dict(filename)
-    dual_words = [n for n in word_dict.items()]
-    #print([f"{word}" for word in d])
+    # #dual_words = [n for n in word_dict.items()]
+    # print([f"{word}" for word in d])
     # Your code here
-       # print(new_dic.sort())
-    highest_word_count = sorted(word_dict.values())[-1]
-    #for i in range(highest_word_count):
+    # print(new_dic.sort())
+    # #highest_word_count = sorted(word_dict.values())[-1]
+    # for i in range(highest_word_count):
     new_list = []
     [new_list.append(k) for k in word_dict.items()]
-    #[print(k[1]) for k in l.items() if l.get(k) > 100]
-    #[print() for ]
-    #[print(k[1]) for k in l.items()]
-    [print(f"{key} : {value}") for key, value in dict(sorted(new_list)).items()]
-    return 
+    # [print(k[1]) for k in l.items() if l.get(k) > 100]
+    # [print() for ]
+    # [print(k[1]) for k in l.items()]
+    for key, value in dict(sorted(new_list)).items():
+        print(f"{key} : {value}")
+    # Or can be done this way.
+    # word_dict = create_word_dict(filename)
+    # [print(f"{key} : {value}") for key, value in sorted(word_dict.items())]
 
 
 def print_top(filename):
     """Prints the top count listing for the given file."""
     raw_word_dict = create_word_dict(filename)
-    #highest_word_count = sorted(raw_word_dict.values())[-1]
+    # highest_word_count = sorted(raw_word_dict.values())[-1]
+
     def myFunc(e):
         return e[1]
     elem = list(raw_word_dict.items())
     elem.sort(key=myFunc)
-    [print(elem[-i - 1]) for i in range(20)]
-        
-    #def myFunc(e):
-        #new_dicts = dict(key=e[0], value=e[1])
-        #new_list.append(new_dicts)
-        #print(new_dicts)
-        ##[print(dict.fromkeys(k,v)) for k, v in dict(e).items()]
-        #return e
-    
-    #new_dict = list(raw_word_dict.items())
-    #[new_dict.sort(key=myFunc)]
-    #print(highest_word_count)
-    #print(new_list)
-    #for item in new_dict:
-        #print(item)
-    #[print(key) for key in list(raw_word_dict.items())]
-    #[print( i, k) for i, k in enumerate(sorted())]
-
-    return 
+    [print(elem[-i - 1]) for i in range(min(20, len(elem)))]
 
 
 # This basic command line argument parsing code is provided and calls
@@ -119,3 +106,41 @@ def main(args):
 
 if __name__ == '__main__':
     main(sys.argv[1:])
+
+# -----
+#  with open(filename, 'r') as file:
+#         all_lines = file.read()
+#     new_word_list = list(filter(None,all_lines.split()))
+#     new_dict = {}
+#     for i, word in enumerate((new_word_list), start=-1):
+#         new_dict.update({new_word_list[i]:new_word_list[i+1]})
+#     new_list = {}
+#     for i, (key, value) in enumerate(new_dict.items()):
+#         if key not in new_list:
+#             new_list.update({key:[value]})
+#         if key in new_list:
+#             list_value = new_list.setdefault(key)
+#             list_value.append(value)
+#             print()
+#     #print(new_list)
+#     pass
+
+
+# ----------------
+# with open(filename, 'r') as file:
+#         all_lines = file.read()
+#     new_word_list = list(filter(None,all_lines.split()))
+#     new_dict = {}
+#     for i, word in enumerate((new_word_list), start=-1):
+#         if new_dict.get(word) is None:
+#             new_dict.update({new_word_list[i]:new_word_list[i+1]})
+#         if new_dict.get(word) is not None:
+#             print(word)
+
+#     new_list = {}
+#     for i, (key, value) in enumerate(new_dict.items()):
+#         if key not in new_list:
+#             new_list.update({key:[value]})
+#         if key in new_list:
+#             list_value = new_list.setdefault(key)
+#             list_value.append(value)
